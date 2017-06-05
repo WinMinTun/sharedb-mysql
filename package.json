@@ -1,0 +1,20 @@
+{
+  "name": "sharedb-mysql",
+  "version": "1.0.0",
+  "description": "MySQL adapter for ShareDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Win Min Tun <sawrochelais@gmail.com>",
+  "license": "MIT",
+  "keywords": ["sharedb", "sharejs", "share", "mysql", "ot", "operational transformation"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winmintun/sharedb-mysql"
+  },
+  "dependencies": {
+    "mysql": "^2.13.0",
+    "sharedb": "^0.11.34"
+  }
+}
