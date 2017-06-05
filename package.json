@@ -1,6 +1,6 @@
 {
   "name": "sharedb-mysql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MySQL adapter for ShareDB",
   "main": "index.js",
   "scripts": {

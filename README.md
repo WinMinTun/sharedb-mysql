@@ -13,7 +13,7 @@ MySQL configuration and other options as an argument. For example:
 
 ```js
 const mysqlOptions = { db: {host: 'localhost', user: 'root', password: '', database: 'somedb'} };
-var mySQLDB = require('./lib/sharedb-mysql/index.js')(mysqlOptions);
+var mySQLDB = require('sharedb-mysql')(mysqlOptions);
 var backend = require('sharedb')({db: mySQLDB})
 ```
 
