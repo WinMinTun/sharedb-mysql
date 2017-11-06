@@ -34,15 +34,15 @@ function MySQLDB(options) {
 	if (options.debug) {
 		debug = options.debug;
 		pool.on('acquire', function (connection) {
-			console.log('Connection %d acquired', connection.threadId);
+			//console.log('Connection %d acquired', connection.threadId);
 		});
 
 		pool.on('release', function (connection) {
-			console.log('Connection %d released', connection.threadId);
+			//console.log('Connection %d released', connection.threadId);
 		});
 			
 		pool.on('enqueue', function () {
-			console.log('Waiting for available connection slot');
+			//console.log('Waiting for available connection slot');
 		});
 	}
 	
