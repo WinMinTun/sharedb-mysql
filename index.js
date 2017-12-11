@@ -1,7 +1,7 @@
 /* 	MySQL-backed ShareDB (https://github.com/share/sharedb) database
 *	Wraps https://www.npmjs.com/package/mysql
 *	@author Win Min Tun (sawrochelais@gmail.com)
-*	@version 1.0.4
+*	@version 1.0.5
 */
 
 // @TODO: add support for MySQL JSON type
@@ -220,13 +220,21 @@ MySQLDB.prototype.getSnapshot = function(collection, id, fields, options, callba
 			let snapshot;
 			if (results.length) {
 				let row = results[0]
-				snapshot = new MySQLSnapshot(
-					id,
-					row.version,
-					row.doc_type,
-					JSON.parse(row.data),
-					undefined // TODO: metadata
-				)
+				try {
+
+					snapshot = new MySQLSnapshot(
+						id,
+						row.version,
+						row.doc_type,
+						JSON.parse(row.data),
+						undefined // TODO: metadata
+					)
+				} catch(error) { // invalid json when document over-grow the max char length of db field
+					if (debug) console.log(error);
+					connection.release();
+					callback(error);
+					return;
+				}
 			} else {
 				snapshot = new MySQLSnapshot(
 					id,
@@ -282,7 +290,15 @@ MySQLDB.prototype.getOps = function(collection, id, from, to, options, callback)
 			}
 
 			callback(null, results.map(function(row) {
-				return JSON.parse(row.operation);
+				try {
+					return JSON.parse(row.operation);
+				} catch(error) {  // invalid json when document over-grow the max char length of db field
+					if (debug) console.log(error);
+					connection.release();
+					callback(error);
+					return;
+				}
+				
 			}));
 			
 			connection.release(); // release connection
